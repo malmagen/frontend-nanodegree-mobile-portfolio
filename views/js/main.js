@@ -508,16 +508,39 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
-  //var items = document.getElementsByClassName("mover");
+  //var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName("mover");
+
+  var a = Math.sin((document.body.scrollTop/1250 ) + (1 % 5));
+  var b = Math.sin((document.body.scrollTop/1250 ) + (2 % 5));
+  var c = Math.sin((document.body.scrollTop/1250 ) + (3 % 5));
+  var d = Math.sin((document.body.scrollTop/1250 ) + (4 % 5));
+  var e = Math.sin((document.body.scrollTop/1250 ) + (5 % 5));
 
   for (var i = 0; i < items.length; i++) {
+    //uppdateras var femte gång.
+    if(i % 5 === 1){
+      items[i].style.left = items[i].basicLeft + 100 * a + 'px';
 
-    var phase = Math.sin((document.body.scrollTop/1250 ) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    }
+    else if(i % 5 === 2){
+      items[i].style.left = items[i].basicLeft + 100 * b + 'px';
+    }
+    else if(i % 5 === 3){
+      items[i].style.left = items[i].basicLeft + 100 * c + 'px';
+    }
+    else if(i % 5 === 4){
+      items[i].style.left = items[i].basicLeft + 100 * d + 'px';
+    }
+    else{
+      items[i].style.left = items[i].basicLeft + 100 * e + 'px';
+    }
+    //var phase = Math.sin((document.body.scrollTop/1250 ) + (i % 5));
+    //items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
 
   }
 
