@@ -1,12 +1,4 @@
 
-
-/*To do:
-Add getElementsByClass instead of
-getElementsById
-
-
-*/
-
 /*
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
@@ -466,7 +458,7 @@ var resizePizzas = function(size) {
     var newsize = sizeSwitcher(size);
     var dx = (newsize-oldsize)*windowwidth;
     var newwidth = oldwidth + dx + 'px';
-
+    //taken out the constants from the for loop and placing directly in the function inorder to make it render faster
     for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
       //var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[i], size);
       //var newwidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth + dx) + 'px';
@@ -520,17 +512,18 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  //var items = document.querySelectorAll('.mover');
-  var items = document.getElementsByClassName("mover");
+  //replaced the querySelectorAll with the getElementsByClassNamevar
+  items = document.getElementsByClassName("mover");
 
   var a = Math.sin((document.body.scrollTop/1250 ) + (1 % 5));
   var b = Math.sin((document.body.scrollTop/1250 ) + (2 % 5));
   var c = Math.sin((document.body.scrollTop/1250 ) + (3 % 5));
   var d = Math.sin((document.body.scrollTop/1250 ) + (4 % 5));
   var e = Math.sin((document.body.scrollTop/1250 ) + (5 % 5));
-
+/*instead of calculating the how the pizzas should change each time, it is only calculated once
+  since it doesn't vary each time. Depending on which pizza item it is it will use the correct constant.
+  */
   for (var i = 0; i < items.length; i++) {
-    //uppdateras var femte gång.
     if(i % 5 === 1){
       items[i].style.left = items[i].basicLeft + 100 * a + 'px';
 
@@ -565,8 +558,7 @@ function updatePositions() {
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
 
-// Generates the sliding pizzas when the page loads.
-//todo: seee if I can take out constants from the for loop.
+// Generates the sliding pizzas when the page loads based on the screen height and width
 
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
